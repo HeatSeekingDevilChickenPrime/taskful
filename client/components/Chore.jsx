@@ -31,7 +31,9 @@ const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
   return (
     <div>
 
-
+    {console.log(chores, 'chores from chores.jsx')}
+    {console.log(points, 'points from chores.jsx')}
+    {console.log(priority, 'priority from chores.jsx')}
       <h2 className="Chore" name="Chore" value={chores}>
         {chores}
         <div className="points-display">
