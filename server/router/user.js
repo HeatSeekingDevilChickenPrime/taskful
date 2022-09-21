@@ -9,6 +9,15 @@ router.post('/login', userController.login, cookieController.setUserCookie, (req
     res.status(200).json(res.locals.userInfo)
 });
 
+router.post('/register', userController.register, cookieController.setUserCookie, (req, res) => {
+    if (res.locals.alreadyCreated) {
+        // console.log(res.locals.alreadyCreated);
+        res.status(200).json({message: 'User Already Exists'});
+    } else {
+    res.status(200).json(res.locals.userInfo)
+    }
+});
+
 router.get('/home', userController.checkCookie, (req, res) => {
     res.status(200).json(res.locals.userInfo)
 });

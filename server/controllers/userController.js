@@ -10,12 +10,35 @@ userController.login = async (req, res, next) => {
         });
         res.locals.googleId = req.body.userId;
         res.locals.userId = user.dataValues.id;
-        console.log(dataValues.id);
         res.locals.userInfo = user.dataValues;
     }catch (err) {
         //handle error response from create
         return next({
             log: 'Middleware error. usercontroller.login',
+            message: { err: 'An err occurred' },
+        });
+    }
+    return next();
+}
+
+userController.register = async (req, res, next) => {
+    try {
+        const [user, created] = await User.findOrCreate({
+            where: { googleid: req.body.userId },
+            defaults: { googleid: req.body.userId, password: req.body.passwordId, familyid: 1}
+        });
+        // res.locals.googleId = req.body.userId;
+        // console.log(created);
+        if (!created){
+            res.locals.alreadyCreated = true;
+            return next();
+        }
+        res.locals.userId = user.dataValues.id;
+        res.locals.userInfo = user.dataValues;
+    }catch (err) {
+        //handle error response from create
+        return next({
+            log: 'Middleware error. usercontroller.register',
             message: { err: 'An err occurred' },
         });
     }

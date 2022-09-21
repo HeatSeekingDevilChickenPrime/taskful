@@ -11,7 +11,7 @@ function Login() {
   return (
     <div className="login">
       <h2>Login</h2>
-      <form>
+      <form onSubmit={submitLogin}>
         <div className="email">
           <label>Email</label>
           <input type="email" id="email" name="email" required />
