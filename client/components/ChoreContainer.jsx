@@ -4,11 +4,11 @@ import Leaderboard from './Leaderboard';
 import ChoreList from './ChoreList';
 
 function ChoreContainer() {
-  const [data, setData] = useState([
+  const [data, setData] = useState([]);
     // { chores: 'sweep', points: 20, priority: 15 },
     // { chores: 'brian', points: 20, priority: 15 },
     // { chores: 'louis', points: 20, priority: 15 },
-  ]);
+  
 
   const [chores, setChores] = useState('');
   const [points, setPoints] = useState(0);
@@ -20,17 +20,19 @@ function ChoreContainer() {
     fetch('/family/1')
     .then(res => res.json())
     .then((respdata) =>{
-    console.log('data',respdata);
-    setData(respdata)
-    console.log('this is data', data);
+    // console.log('data',respdata);
+    setData(respdata);
     })
     .catch((err) => {
     })
   }
+  
 
   useEffect(() => {
    getData();
   }, []);
+
+  
 
   const handleSubmit = (e) => {
     let newChore = e.target[0].value;
@@ -49,20 +51,21 @@ function ChoreContainer() {
         priority: newPriority,
       }),
     })
-      .then((data) => data.json())
+      .then((resdata) => resdata.json())
+      .then( (resp) => setData([resp,...data]))
       .catch((err) => console.log(err));
-    const newRefresh = !refresh 
-    setRefresh(newRefresh)
-    setData([
-      ...data,
-      { chores: newChore, points: newPoints, priority: newPriority },
-    ]);
+    // const newRefresh = !refresh 
+    // setRefresh(newRefresh)
+    
     document.getElementById('itemInput').value = null;
     document.getElementById('numInput').value = null;
     document.getElementById('numInput2').value = null;
   };
   // console.log(chores, points, priority);
   // console.log(data);
+ 
+  // ...data,
+  //     { chores: newChore, points: newPoints, priority: newPriority },
 
   const handleDelete = (id) => {
     // e.preventDefault();
@@ -82,6 +85,7 @@ function ChoreContainer() {
     // setData(data.filter((item) => item._id !== id));
   };
 
+  if (data) {
   return (
     <>
       <Leaderboard />
@@ -94,11 +98,14 @@ function ChoreContainer() {
         handleSubmit={handleSubmit}
         handleDelete={handleDelete}
         setData={setData}
+        
       />
+      {   console.log('this is state data', data)
+}
     </>
   );
 }
-
+}
 export default ChoreContainer;
 //function ChoreContainer() {
   // const [data, setData] = useState([
@@ -172,3 +179,5 @@ export default ChoreContainer;
 //     .catch((err) => console.log(err));
 //   // setData(data.filter((item) => item._id !== id));
 // };
+
+
