@@ -20,8 +20,8 @@ function ChoreContainer() {
     fetch('/family/1')
     .then(res => res.json())
     .then((respdata) =>{
-    // console.log('data',respdata);
-    setData(respdata);
+    const filterData = respdata.filter(id => id.userid === null)
+    setData(filterData);
     })
     .catch((err) => {
     })
@@ -52,7 +52,7 @@ function ChoreContainer() {
       }),
     })
       .then((resdata) => resdata.json())
-      .then( (resp) => setData([resp,...data]))
+      .then( (resp) => setData([resp, ...data]))
       .catch((err) => console.log(err));
     // const newRefresh = !refresh 
     // setRefresh(newRefresh)
@@ -70,6 +70,7 @@ function ChoreContainer() {
   const handleDelete = (id) => {
     // e.preventDefault();
     const choreId = id;
+    
     fetch('/individual/1', {
       method: 'PATCH',
       headers: {
@@ -77,14 +78,17 @@ function ChoreContainer() {
       },
       body: JSON.stringify({ id: choreId }),
     })
-      .then((data) => {
-        const newRefresh = !refresh 
-        setRefresh(newRefresh)
-        data.json()})
+    .then((res) => res.json())
+    .then((resData) => {
+      if (resData){
+      getData();
+    }})
+      // .then((data) => {data.json()})
       .catch((err) => console.log(err));
     // setData(data.filter((item) => item._id !== id));
+   
   };
-
+ 
   if (data) {
   return (
     <>
@@ -100,8 +104,7 @@ function ChoreContainer() {
         setData={setData}
         
       />
-      {   console.log('this is state data', data)
-}
+      {/* { console.log('this is state data', data) } */}
     </>
   );
 }

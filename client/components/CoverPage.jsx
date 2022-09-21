@@ -2,7 +2,7 @@ import React from 'react';
 import taskful from '../data/taskful.png';
 import { Link } from 'react-router-dom';
 import GoogleAuth from './GoogleAuth'
-console.log(taskful);
+// console.log(taskful);
 
 function CoverPage() {
 
