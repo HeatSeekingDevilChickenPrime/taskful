@@ -10,7 +10,7 @@ Brian Yang - [@yangbrian310](https://github.com/yangbrian310)
 
 Eden Shirin - [@EdSheranaway](https://github.com/EdSheranaway)
 
-Ji Kim - [@dwejikim](https://github.com/orgs/HeatSeekingDevilChickenPrime/people/dwejikim)
+Ji Kim - [@dwejikim](https://github.com/dwejikim)
 
 David Cheng - [@DavidZCheng](https://github.com/DavidZCheng)
 
