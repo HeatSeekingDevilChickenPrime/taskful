@@ -2,21 +2,40 @@ import React, { Component, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Leaderboard from './Leaderboard';
 import ChoreList from './ChoreList';
+import { connect } from 'react-redux';
+// import { useSelector, useDispatch} from 'react-redux';
+ const mapStateToProps = state => ({
+    data: state.chores.data
+  })
 
-function ChoreContainer() {
-  const [data, setData] = useState([]);
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      createChore: (choreCreated) => {
+        dispatch(actions.CreateChoreCreator(choreCreated))
+      },
+      getAllChores : (choresReceived) => {
+        dispatch(actions.GetAllChoresCreator(choresReceived))
+      }
+    }
+  }
+
+function ChoreContainer({data, createChore, getAllChores }) {
+  // const [data, setData] = useState([]);
   const [chores, setChores] = useState('');
   const [points, setPoints] = useState(0);
   const [priority, setPriority] = useState(0);
 
   //* here is a stateful component, put mapToDispatch stuff
+ 
+  // console.log(data);
 
   const getData = () => {
     fetch('/family/1')
     .then(res => res.json())
     .then((respdata) =>{
-    const filterData = respdata.filter(id => id.userid === null)
-    setData(filterData);
+      getAllChores(respdata)
+    // const filterData = respdata.filter(id => id.userid === null)
+    // setData(filterData); // change this
     })
     .catch((err) => {
     })
@@ -25,7 +44,7 @@ function ChoreContainer() {
   useEffect(() => {
    getData();
   }, []);
-
+  console.log(data);
   const handleSubmit = (e) => {
     let newChore = e.target[0].value;
     let newPoints = e.target[1].value;
@@ -44,7 +63,11 @@ function ChoreContainer() {
       }),
     })
       .then((resdata) => resdata.json())
-      .then( (resp) => setData([resp, ...data]))
+      .then((resp) =>{
+        //returns an object
+        createChore(resp)
+    })
+  // setData([resp, ...data])) <= this logic in reducer function
       .catch((err) => console.log(err));
     
     document.getElementById('itemInput').value = null;
@@ -54,7 +77,6 @@ function ChoreContainer() {
 
   const handleDelete = (id) => {
     const choreId = id;
-    
     fetch('/individual/1', {
       method: 'PATCH',
       headers: {
@@ -70,7 +92,6 @@ function ChoreContainer() {
       .catch((err) => console.log(err));
   };
  
-  if (data) {
   return (
     <>
       <Leaderboard />
@@ -82,11 +103,11 @@ function ChoreContainer() {
         setChores={setChores}
         handleSubmit={handleSubmit}
         handleDelete={handleDelete}
-        setData={setData}
+        // setData={setData}
         
       />
     </>
   );
+
 }
-}
-export default ChoreContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(ChoreContainer); 

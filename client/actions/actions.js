@@ -15,3 +15,8 @@ export const CompleteChoreCreator = choreCompleted => ({
   payload: choreCompleted,
 });
 
+
+export const GetAllChoresCreator = choresReceived => ({
+    type: types.GET_ALL_CHORES,
+    payload: choresReceived,
+})
