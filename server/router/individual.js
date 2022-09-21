@@ -4,8 +4,8 @@ const individualController = require('../controllers/individualController');
 const router = express.Router();
 
 router.get('/', individualController.getChores, (req, res) => {
-    // console.log('histories', res.locals.histories)
-    res.status(200).send(res.locals.chores)
+    console.log('histories', res.locals.chores)
+    res.status(200).json(res.locals.chores)
 });
 
 router.patch('/:id', individualController.addChore, (req, res) => {

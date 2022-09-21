@@ -5,7 +5,6 @@ import Chore from './Chore';
 import {} from '../services/user';
 
 const ChoreList = ({ data, handleSubmit, handleDelete, setData }) => {
-  // const results = [];
   return (
     <div className="ChoreList">
       <h2>Task List</h2>
@@ -36,9 +35,7 @@ const ChoreList = ({ data, handleSubmit, handleDelete, setData }) => {
         ></input>
         <button type="Submit">Add item</button>
       </form>
-      {/* {console.log(data, 'state inside ChoreList')} */}
       {data.map((task, i) => (
-        // console.log(task, 'task from data.map'),
         <Chore
           data={task} //{ chores: 'louis', points: 20, priority: 15 }
           id = {task.id}

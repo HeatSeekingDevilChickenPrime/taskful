@@ -34,12 +34,6 @@ individualController.getChores = async(req, res, next) => {
 
 //this should update a chore to userId
 individualController.addChore = async (req, res, next) => {
-    // let currentDate = new Date();
-    // let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
-    // let cDay = currentDate.getDate();
-    // let cMonth = currentDate.getMonth() + 1;
-    // let cYear = currentDate.getFullYear();
-    // const current = cDay + "/" + cMonth + "/" + cYear + ' ' + time;
     //sqlize method to create an entry in personal chores list of db\
     try {
         const { userId } = req.cookies;
