@@ -17,7 +17,7 @@ function PersonalList() {
      setData(data);
     })
    } 
-   catch (error) {
+   catch {
     setData([]);
    }
   }
