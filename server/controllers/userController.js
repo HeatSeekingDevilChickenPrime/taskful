@@ -10,6 +10,7 @@ userController.login = async (req, res, next) => {
         });
         res.locals.googleId = req.body.userId;
         res.locals.userId = user.dataValues.id;
+        console.log(dataValues.id);
         res.locals.userInfo = user.dataValues;
     }catch (err) {
         //handle error response from create

@@ -7,11 +7,23 @@ function Register() {
   //      .then((response) => setData(response))
   //  );
 
+  const submitRegister = (event) => {
+    event.preventDefault();
+    console.log(event);
+    fetch('/user/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userId: event.target[0].value,
+      }),
+    })
+  }
+
   return (
     <div>
       <h3>Register</h3>
 
-      <form>
+      <form onSubmit={submitRegister}>
         <div>
           <label>Name</label>
           <input type="text" id="name" name="name" required />
@@ -25,7 +37,7 @@ function Register() {
           <input type="password" id="password" name="password" required />
         </div>
         <div>
-          <button type="submit">Register</button>
+          <button type="submit" >Register</button>
         </div>
       </form>
     </div>
