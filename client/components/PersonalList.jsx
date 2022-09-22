@@ -4,7 +4,7 @@ import PersonalChore from './PersonalChore';
 import NothingHere from './NothingHere';
 
 function PersonalList() {
-  const [data, setData] = useState([]);
+  const [personalData, setPersonalData] = useState([]);
   const [chores, setChores] = useState('');
   const [points, setPoints] = useState(0);
   const [priority, setPriority] = useState(0);
@@ -14,11 +14,11 @@ function PersonalList() {
     const search = await fetch('/individual')
     .then(res => res.json())
     .then((data) => {
-     setData(data);
+      setPersonalData(data);
     })
    } 
    catch {
-    setData([]);
+    setPersonalData([]);
    }
   }
   
@@ -46,26 +46,27 @@ function PersonalList() {
   };
 
 
-  if (data.length > 0){
+  if (personalData.length > 0){
   return (
     <div>
       <h1>Personal Chores List</h1>
+      <Link to="/tasks">
+        <button> Leaderboard </button>
+      </Link>
       {
-      data.map((task, i) => (
+      personalData.map((task, i) => (
         <PersonalChore
-          data={task} //{ chores: 'louis', points: 20, priority: 15 }
+          personalData={task} //{ chores: 'louis', points: 20, priority: 15 }
           id = {task.id}
           chores={task.chorename} //{ chores: 'louis' }
           points={task.points} //{  points: 20,  }
           priority={task.priority} // {} priority: 15 }
           key={i}
           handleDelete={handleDelete}
-          setData={setData}
+          setPersonalData={setPersonalData}
         />
       ))}
-      <Link to="/tasks">
-        <button> Leaderboard </button>
-      </Link>
+      
     </div>
       
   )}
