@@ -5,28 +5,28 @@ import { FaCalendarCheck } from 'react-icons/fa';
 import {} from '../services/user';
 
 const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
-  const handlePersonal = (id) => {
-    e.preventDefault();
-    fetch(`/api`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ _id: id }),
-    })
-      .then((data) => data.json())
-      .catch((err) => console.log(err));
+  // const handlePersonal = (id) => {
+  //   e.preventDefault();
+  //   fetch(`/api`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ _id: id }),
+  //   })
+  //     .then((data) => data.json())
+  //     .catch((err) => console.log(err));
 
-    fetch(`/api`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ _id: id }),
-    })
-      .then((data) => data.json())
-      .catch((err) => console.log(err));
-  };
+  //   fetch(`/api`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ _id: id }),
+  //   })
+  //     .then((data) => data.json())
+  //     .catch((err) => console.log(err));
+  // };
   // console.log(h2.Chore)
   return (
     <div>
