@@ -26,7 +26,7 @@ function Register() {
       window.confirm(data.message)
       }
       else {
-        console.log('Successfully registered');
+        console.log(data.successMessage);
         Navigate('/tasks');
       }
     })

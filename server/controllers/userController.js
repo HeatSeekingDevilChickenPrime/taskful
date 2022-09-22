@@ -21,6 +21,30 @@ userController.login = async (req, res, next) => {
     return next();
 }
 
+userController.localLogin = async (req, res, next) => {
+    try {
+        const user = await User.findOne({
+            where: { googleid: req.body.userId }
+        });
+        // console.log(user);
+            if(req.body.passwordId === user.dataValues.password){
+                return next();
+            }
+            else {
+                res.locals.incorrectPassword = true;
+                return next();
+            }
+    }catch (err) {
+        //handle error response from create
+        return next({
+            log: 'Middleware error. usercontroller.login',
+            message: { err: 'An err occurred' },
+        });
+    }
+}
+
+
+
 userController.register = async (req, res, next) => {
     try {
         const [user, created] = await User.findOrCreate({
@@ -33,8 +57,6 @@ userController.register = async (req, res, next) => {
             res.locals.alreadyCreated = true;
             return next();
         }
-        res.locals.userId = user.dataValues.id;
-        res.locals.userInfo = user.dataValues;
     }catch (err) {
         //handle error response from create
         return next({
