@@ -1,5 +1,6 @@
 import React from 'react'
 
+//in progress extension feature
 function Leaderboard() {
   return (
     <div className="leaderboard">
