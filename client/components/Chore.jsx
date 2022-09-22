@@ -17,20 +17,35 @@ const mapDispatchToProps = (dispatch) => {
   return {
     acceptChore : (choreAccepted) => {
       dispatch(actions.AcceptChoreCreator(choreAccepted))
+    },
+    getAllChores : (choresReceived) => {
+      dispatch(actions.GetAllChoresCreator(choresReceived))
     }
   }
 }
 
 
-const Chore = ({data, acceptChore }) => {
+const Chore = ({data, acceptChore, getData }) => {
 
+  const acceptChoreWrapper = (id) => {
+    const choreId = id
+    fetch('/individual/1', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: choreId }),
+    })
+    // getData();
+  }
+  //acceptChore(ele.id)
 
   // somehwere here
-  console.log(data, ' data in chores');
+  // console.log(data, ' data in chores');
   // console.log(chores, 'chorename');
   // console.log(points, 'points');
   // console.log(priority, 'priority');
-  
+  // have onclick have a wrapper function that handles the fetch and just send id in payload
   return (
     data.map((ele, i) => {
       return (
@@ -41,7 +56,7 @@ const Chore = ({data, acceptChore }) => {
             <div className="points-display">Points: {ele.points}</div>
             <div className="points-display">Priority: {ele.priority}</div>
           </div>
-          <button className="delete"  onClick={()=>acceptChore(ele.id)}>
+          <button className="delete"  onClick={()=> acceptChoreWrapper(ele.id)}>
             <FaCalendarCheck color="green" />
           </button>
         </h2>

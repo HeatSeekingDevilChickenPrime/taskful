@@ -6,9 +6,9 @@ import {} from '../services/user';
 
 
 
-const ChoreList = ({ data, handleSubmit}) => {
+const ChoreList = ({ data, handleSubmit, getData}) => {
   if (data.length > 0){
-    console.log(data, 'data inside chorelist')
+    // console.log(data, 'data inside chorelist')
   }
   // const sendingData = data.map((task, i) => {
   //   <Chore 
@@ -58,7 +58,7 @@ const ChoreList = ({ data, handleSubmit}) => {
         <button type="Submit">Add item</button>
       </form>
       {/* {  console.log(data, 'data passed down')} */}
-      {<Chore  />}
+      {<Chore getData = {getData} />}
    </div>
   );
 };

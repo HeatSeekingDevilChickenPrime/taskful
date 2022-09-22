@@ -12,51 +12,61 @@ const initialState = {
   // points: 0,
   // priority: 0
 }
+//if you dont break in switch cases there will be a fallthrough;
 const choreReducer = (state = initialState, { type, payload }) => {
-    let data;
+    let data = {}
   switch (type) {
 
     case types.GET_ALL_CHORES: {
-      console.log(payload, 'payload in get all c');
+      console.log(payload, 'payload in get all chores');
       const newData = payload.filter( id => id.userid === null);
       data = state.data.slice();
-      
+      // Object.assign(data, state.data);
+      console.log(data, 'state before adding stuff inside get all chores')
+      if (payload == data){
+        console.log('do i work')
+        return data
+      }
       data.push(...newData);
-      console.log(data, 'data inside get all chores')
+      console.log(data, 'state after adding stuff inside get all chores')
       // console.log(data, 'this is newState');
       // console.log(state, 'state inside reducer')
       return {
         ...state,
         data
       }
+      break;
     }
     //case for accept_chore
-    case types.ACCEPT_CHORE: {
-        console.log(payload, 'payload in accept chore')
-        const choreId = payload;
-        fetch(`/individual/${payload}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: choreId }),
-        })
-        .then((res) => {
-          data = state.data.slice();
-          //  && state.userid !== id
-          const newData = data.filter( state => state.userid === null);
-          console.log(newData, 'newdata in acceptChore')
-          data.push(...newData);
-          return {
-            ...state,
-            data
-          }
-        })
-          .catch((err) => console.log(err));
+    //option 1 : learn redux thunk;
+    //option 2 : equally valid to refactor - change it so everything in .then will be the case, and everything in fetch will be in component;
+    // case types.ACCEPT_CHORE: {
+    //     console.log(payload, 'payload in accept chore')
+    //     const choreId = payload;
+    //     // fetch(`/individual/${payload}`, {
+    //     //   method: 'PATCH',
+    //     //   headers: {
+    //     //     'Content-Type': 'application/json',
+    //     //   },
+    //     //   body: JSON.stringify({ id: choreId }),
+    //     // })
+    //     // .then((res) => {
+    //     //   data = state.data.slice();
+    //     //   //  && state.userid !== id
+        
+    //     // })
+    //     const newData = data.filter( state => state.userid === null);
+    //     console.log(newData, 'newdata in acceptChore')
+    //     data.push(...newData);
+    //     return {
+    //       ...state,
+    //       data
+    //     }
+    //       // .catch((err) => console.log(err));
 
  
- 
-    }
+    //     break;
+    // }
     //case for create_chore
     case types.CREATE_CHORE: {
         //switch case should have the logic to keep previous chores and create new chore
@@ -70,8 +80,8 @@ const choreReducer = (state = initialState, { type, payload }) => {
         // points: payload.points,
         // priority: payload.priority,
       }
-      console.log(newData, 'newData in create chore')
-      console.log(payload, 'payload object create chore')
+      // console.log(newData, 'newData in create chore')
+      // console.log(payload, 'payload object create chore')
       data = state.data.slice();
       data.push(newData);
       console.log(data, 'array in createChore')
@@ -79,6 +89,7 @@ const choreReducer = (state = initialState, { type, payload }) => {
         data,
         ...state,
       }
+      break;
     }
     //case for complete_chore
     case types.COMPLETE_CHORE: {

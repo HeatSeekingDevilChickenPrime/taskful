@@ -31,7 +31,7 @@ function ChoreContainer({data, createChore, getAllChores }) {
 
   //* here is a stateful component, put mapToDispatch stuff
  
-  // console.log(data);
+  // console.log(data, 'our state in chorecontainer');
 
   const getData = () => {
     fetch('/family/1')
@@ -105,10 +105,11 @@ function ChoreContainer({data, createChore, getAllChores }) {
       <Link to="/personal">
         <button>User Profile</button>
       </Link>
-      {data && handleSubmit && <ChoreList
+      {data.length > 0 && handleSubmit && <ChoreList
         data={data}
         // setChores={setChores}
         handleSubmit={handleSubmit}
+        getData = {getData}
         // handleDelete={handleDelete}
         // setData={setData}    
       />
