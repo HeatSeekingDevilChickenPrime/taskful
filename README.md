@@ -9,11 +9,12 @@
 
 ## Please note this is an in-development project and may have errors upon installation.
 
-This is an example of how to list things you need to use the software and how to install them.
+In order to contribute to this project, please use the below code to install dependencies.
 * npm
   ```sh
   npm install --force
-<!--   ```
+  ```
+<!--   Making Contributions -->
 
 ### Starting Notes
 - Main branch is only for production
@@ -34,6 +35,7 @@ This is an example of how to list things you need to use the software and how to
 - [ ] 7. Create a pull request in github from <your branch> ==> dev
 - [ ] 8. Repeat as needed
 - [ ] 9. When ready to publish main, do step 7 but from dev => main
+
   ```
   git checkout dev
   git pull origin dev
