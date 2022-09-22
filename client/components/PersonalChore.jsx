@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-//add fetch call functions into deconstructed object
-import {} from '../services/user';
 
 const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
   const handlePersonal = (id) => {
