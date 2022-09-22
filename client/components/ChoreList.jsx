@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Chore from './Chore';
 
-//add fetch call functions into deconstructed object
-import {} from '../services/user';
 
 const ChoreList = ({ data, handleSubmit, handleDelete, setData }) => {
-  // const results = [];
   return (
     <div className="ChoreList">
       <h2>Task List</h2>
@@ -36,15 +33,13 @@ const ChoreList = ({ data, handleSubmit, handleDelete, setData }) => {
         ></input>
         <button type="Submit">Add item</button>
       </form>
-      {/* {console.log(data, 'state inside ChoreList')} */}
       {data.map((task, i) => (
-        // console.log(task, 'task from data.map'),
         <Chore
-          data={task} //{ chores: 'louis', points: 20, priority: 15 }
+          data={task}
           id = {task.id}
-          chores={task.chorename} //{ chores: 'louis' }
-          points={task.points} //{  points: 20,  }
-          priority={task.priority} // {} priority: 15 }
+          chores={task.chorename} 
+          points={task.points} 
+          priority={task.priority} 
           key={i}
           handleDelete={handleDelete}
           setData={setData}

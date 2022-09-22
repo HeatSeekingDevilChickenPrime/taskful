@@ -10,7 +10,7 @@ individualController.getChores = async(req, res, next) => {
         const { userId } = req.cookies;
         const dbRes = await models.Chore.findAll({ where: { userid: userId } })
             //async grabbing chores response from db
-            console.log(dbRes[0].dataValues);
+            // console.log(dbRes[0].dataValues);
             const result = [];
             dbRes.forEach((chore) => {
                 result.push(chore.dataValues);
@@ -43,13 +43,14 @@ individualController.addChore = async (req, res, next) => {
     //sqlize method to create an entry in personal chores list of db\
     try {
         const { userId } = req.cookies;
+        // console.log('hello',userId);
         // const { choreName, points, priority } = req.body;
         const { id } = req.body;
-        console.log('id', id);
+        // console.log('id', id);
         const dbRes = await models.Chore.findOne({
             where: { id: id }
         })//end of create sqlize
-        console.log('dbRes', dbRes);
+        // console.log('dbRes', dbRes);
         await dbRes.update({ userid : userId })
         res.locals.chore = dbRes.dataValues;
         return next();
