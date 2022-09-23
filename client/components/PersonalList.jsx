@@ -48,10 +48,10 @@ function PersonalList() {
 
   if (personalData.length > 0){
   return (
-    <div>
+    <div className= 'personalList'>
       <h1>Personal Chores List</h1>
       <Link to="/tasks">
-        <button> Leaderboard </button>
+        <button className="nothinghere">Add More Tasks</button>
       </Link>
       {
       personalData.map((task, i) => (
@@ -75,6 +75,7 @@ function PersonalList() {
        <div>
        <h1>Personal Chores List</h1>
        <NothingHere/>
+       <div className='cloud'></div>
        </div>
      )
   }

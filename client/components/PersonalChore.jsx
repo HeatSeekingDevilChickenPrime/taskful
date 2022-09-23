@@ -28,7 +28,12 @@ const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
 
   return (
     <>
-      <h2 className="Chore"> {chores}
+    <div className='cloud'></div>
+    <div className='cloud' id='cloud2'></div>
+    <div className='cloud' id='cloud3'></div>
+    <div className='cloud' id='cloud4'></div>
+      <div className="Chore"> 
+      <div className='choreName'>{chores}</div>
       <div className="points-display">
         <div className="points-display">Points: {points}</div>
         <div className="points-display">Priority: {priority}</div>
@@ -36,7 +41,7 @@ const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
       <button className="delete" value={chores} onClick={()=>handleDelete(id)}>
         <FaTimes color="red" />
       </button>
-      </h2>
+      </div>
     </>
   );
 };

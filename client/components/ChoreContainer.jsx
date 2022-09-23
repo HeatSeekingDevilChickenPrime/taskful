@@ -73,7 +73,9 @@ function ChoreContainer() {
     <>
       <Leaderboard />
       <Link to="/personal">
-        <button>User Profile</button>
+        <div className="userbutton">
+        <button id="userprofile">User Profile</button>
+        </div>
       </Link>
       <ChoreList
         data={data}
@@ -83,6 +85,10 @@ function ChoreContainer() {
         setData={setData}
         
       />
+    <div className='cloud' id='cloud5'></div>
+    <div className='cloud' id='cloud6'></div>
+    <div className='cloud' id='cloud7'></div>
+    <div className='cloud' id='cloud8'></div>
     </>
   );
 }
