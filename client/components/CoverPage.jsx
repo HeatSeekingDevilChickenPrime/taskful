@@ -14,7 +14,7 @@ function CoverPage() {
 
   return (
     <div className="CoverPage">
-      <img src={taskful} />
+      <img className="image" src={taskful} />
       {/* <Link to="/tasks"> */}
         <div className="register"><Register /></div>
         <div className="login"><Login /></div>

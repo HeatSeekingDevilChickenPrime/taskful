@@ -35,9 +35,13 @@ function Login() {
   return (
     <div className="login">
       <h2>Login</h2>
+      <div className='cloud' id='cloud5'></div>
+    <div className='cloud' id='cloud6'></div>
+    <div className='cloud' id='cloud7'></div>
+    <div className='cloud' id='cloud8'></div>
       <form onSubmit={submitLogin}>
         <div className="email">
-          <label>Email</label>
+          <label className="email">Email</label>
           <input type="email" id="email" name="email" required />
         </div>
         <div className="pass">

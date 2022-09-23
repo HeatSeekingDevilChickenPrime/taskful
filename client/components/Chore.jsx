@@ -6,7 +6,7 @@ const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
 
   return (
     <div>
-      <h2 className="Chore" name="Chore" value={chores}>
+      <div className="Chore" name="Chore" value={chores}>
         {chores}
         <div className="points-display">
           <div className="points-display">Points: {points}</div>
@@ -15,7 +15,7 @@ const Chore = ({ id, chores, points, priority, handleDelete, setData }) => {
         <button className="delete" value={id} onClick={()=>handleDelete(id)}>
           <FaCalendarCheck color="green" />
         </button>
-      </h2>
+      </div>
       </div> 
   )
 };

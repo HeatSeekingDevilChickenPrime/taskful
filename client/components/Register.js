@@ -35,8 +35,13 @@ function Register() {
   }
 
   return (
-    <div>
-      <h3>Register</h3>
+    <div className="register">
+      <h3 id="register">Register</h3>
+      <div className='cloud' id='cloud5'></div>
+    <div className='cloud' id='cloud6'></div>
+    <div className='cloud' id='cloud7'></div>
+    <div className='cloud' id='cloud8'></div>
+
 
       <form onSubmit={submitRegister}>
         {/* <div>
