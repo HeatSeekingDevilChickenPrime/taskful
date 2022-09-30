@@ -30,6 +30,11 @@ const user = sequelize.define('user', {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
+
   // user_chore_list_id: {
   //   type: DataTypes.BIGINT,
   // },

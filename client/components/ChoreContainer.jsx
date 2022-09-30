@@ -4,27 +4,25 @@ import Leaderboard from './Leaderboard';
 import ChoreList from './ChoreList';
 
 function ChoreContainer() {
-  const [data, setData] = useState([
-    // { chores: 'sweep', points: 20, priority: 15 },
-    // { chores: 'brian', points: 20, priority: 15 },
-    // { chores: 'louis', points: 20, priority: 15 },
-  ]);
-
+  const [data, setData] = useState([]);
   const [chores, setChores] = useState('');
   const [points, setPoints] = useState(0);
   const [priority, setPriority] = useState(0);
-  const [ refresh, setRefresh ] = useState(false);
 
-  useEffect(() => {
+  const getData = () => {
     fetch('/family/1')
-      .then(res => res.json())
-      .then((respdata) =>{
-      console.log('data',respdata);
-      setData(respdata)
-      })
-      .catch((err) => {
-      })
-  }, [refresh]);
+    .then(res => res.json())
+    .then((respdata) =>{
+    const filterData = respdata.filter(id => id.userid === null)
+    setData(filterData);
+    })
+    .catch((err) => {
+    })
+  }
+  
+  useEffect(() => {
+   getData();
+  }, []);
 
   const handleSubmit = (e) => {
     let newChore = e.target[0].value;
@@ -43,24 +41,18 @@ function ChoreContainer() {
         priority: newPriority,
       }),
     })
-      .then((data) => data.json())
+      .then((resdata) => resdata.json())
+      .then( (resp) => setData([resp, ...data]))
       .catch((err) => console.log(err));
-    const newRefresh = !refresh 
-    setRefresh(newRefresh)
-    setData([
-      ...data,
-      { chores: newChore, points: newPoints, priority: newPriority },
-    ]);
+    
     document.getElementById('itemInput').value = null;
     document.getElementById('numInput').value = null;
     document.getElementById('numInput2').value = null;
   };
-  // console.log(chores, points, priority);
-  // console.log(data);
 
   const handleDelete = (id) => {
-    // e.preventDefault();
     const choreId = id;
+    
     fetch('/individual/1', {
       method: 'PATCH',
       headers: {
@@ -68,19 +60,22 @@ function ChoreContainer() {
       },
       body: JSON.stringify({ id: choreId }),
     })
-      .then((data) => {
-        const newRefresh = !refresh 
-        setRefresh(newRefresh)
-        data.json()})
+    .then((res) => res.json())
+    .then((resData) => {
+      if (resData){
+      getData();
+    }})
       .catch((err) => console.log(err));
-    // setData(data.filter((item) => item._id !== id));
   };
-
+ 
+  if (data) {
   return (
     <>
       <Leaderboard />
       <Link to="/personal">
-        <button>User Profile</button>
+        <div className="userbutton">
+        <button id="userprofile">User Profile</button>
+        </div>
       </Link>
       <ChoreList
         data={data}
@@ -88,9 +83,14 @@ function ChoreContainer() {
         handleSubmit={handleSubmit}
         handleDelete={handleDelete}
         setData={setData}
+        
       />
+    <div className='cloud' id='cloud5'></div>
+    <div className='cloud' id='cloud6'></div>
+    <div className='cloud' id='cloud7'></div>
+    <div className='cloud' id='cloud8'></div>
     </>
   );
 }
-
+}
 export default ChoreContainer;

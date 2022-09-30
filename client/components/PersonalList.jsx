@@ -1,60 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PersonalChore from './PersonalChore';
+import NothingHere from './NothingHere';
 
 function PersonalList() {
-  const [data, setData] = useState([
-    { chores: 'sweep', points: 20, priority: 15 },
-    { chores: 'brian', points: 20, priority: 15 },
-    { chores: 'louis', points: 20, priority: 15 },
-  ]);
+  const [personalData, setPersonalData] = useState([]);
   const [chores, setChores] = useState('');
   const [points, setPoints] = useState(0);
   const [priority, setPriority] = useState(0);
-  const [refresh, setRefresh] = useState(true);
 
+  const getData = async () => {
+   try {
+    const search = await fetch('/individual')
+    .then(res => res.json())
+    .then((data) => {
+      setPersonalData(data);
+    })
+   } 
+   catch {
+    setPersonalData([]);
+   }
+  }
+  
   useEffect(() => {
-    fetch('/individual')
-      .then(res => res.json())
-      .then((respdata) => {
-        console.log('data', respdata);
-        setData(respdata)
-      })
-      .catch((err) => {
-      })
-  }, [refresh]);
+    getData();
+   }, []);
 
-  // const handleSubmit = (e) => {
-  //   let newChore = e.target[0].value;
-  //   let newPoints = e.target[1].value;
-  //   let newPriority = e.target[2].value;
-  //   e.preventDefault();
-  //   fetch(`/individual`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       id: id,
-  //       choreName: newChore
-  //     }),
-  //   })
-  //     .then((data) => data.json())
-  //     .catch((err) => console.log(err));
-
-  //   setData([
-  //     ...data,
-  //     { chores: newChore, points: newPoints, priority: newPriority },
-  //   ]);
-  //   document.getElementById('itemInput').value = null;
-  //   document.getElementById('numInput').value = null;
-  //   document.getElementById('numInput2').value = null;
-  // };
-  // console.log(chores, points, priority);
-  // console.log(data);
 
   const handleDelete = (id, e) => {
-    // e.preventDefault();
     fetch(`/individual/1`, {
       method: 'DELETE',
       headers: {
@@ -64,36 +37,48 @@ function PersonalList() {
         id: id,
       }),
     })
-      .then((data) => {
-        const newRefresh = !refresh
-        setRefresh(newRefresh)
-        return data.json()
+      .then((res) => {
+        if (res){
+          getData();
+        }
       })
         .catch((err) => console.log(err));
-        // setData(data.filter((item) => item._id !== id));
   };
 
+
+  if (personalData.length > 0){
   return (
-    <div>
+    <div className= 'personalList'>
       <h1>Personal Chores List</h1>
-      {data.map((task, i) => (
+      <Link to="/tasks">
+        <button className="nothinghere">Add More Tasks</button>
+      </Link>
+      {
+      personalData.map((task, i) => (
         <PersonalChore
-          data={task} //{ chores: 'louis', points: 20, priority: 15 }
+          personalData={task}
           id = {task.id}
-          chores={task.chorename} //{ chores: 'louis' }
-          points={task.points} //{  points: 20,  }
-          priority={task.priority} // {} priority: 15 }
+          chores={task.chorename} 
+          points={task.points} 
+          priority={task.priority} 
           key={i}
           handleDelete={handleDelete}
-          setData={setData}
+          setPersonalData={setPersonalData}
         />
       ))}
-
-      <Link to="/tasks">
-        <button> Leaderboard </button>
-      </Link>
+      
     </div>
-  );
+      
+  )}
+  else {
+     return (
+       <div>
+       <h1>Personal Chores List</h1>
+       <NothingHere/>
+       <div className='cloud'></div>
+       </div>
+     )
+  }
 }
 
 export default PersonalList;

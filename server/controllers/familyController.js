@@ -62,6 +62,7 @@ familyController.addChore = (req, res, next) => {
         //handle success response after create method
         .then((response) => {
             res.locals.chore = response.dataValues;
+            // console.log(res.locals.chore);
             return next();
         })//end of then dealing with response
 
